@@ -11,7 +11,7 @@ To run, just
 
 ## Pursuit Game
 
-The Pursuit Game is in C, and originally by Kok et al. (https://staff.fnwi.uva.nl/a.visser/research/ias/trilearn/publications/b2hd-IAS-UVA-03-03.html). It is also pre-compiled for Linux x64 systems, but you can compile it after installing GL and glut libraries (http://www.mesa3d.org) with
+The Pursuit Game is in C, and originally by [Kok et al.](https://staff.fnwi.uva.nl/a.visser/research/ias/trilearn/publications/b2hd-IAS-UVA-03-03.html). It is also pre-compiled for Linux x64 systems, but you can compile it after installing [GL and glut libraries](http://www.mesa3d.org) with
 
     cd Pursuit
     ./configure
@@ -23,7 +23,7 @@ To run, adjust configurations on `Pursuit/pursuit/src/pursuit.conf`, and just
 
 ## Multi-agent Double DQN
 
-The Multi-agent Double DQN algorithm is in the `MaDDQN` folder. To run, you will need Python3 (https://www.python.org/download/releases/3.0/) and TensorFlow (https://www.tensorflow.org/). Adjust configuration on `MaDDQN/src/config.py`, and just
+The Multi-agent Double DQN algorithm is in the `MaDDQN` folder. To run, you will need [Python3](https://www.python.org/download/releases/3.0/) and [TensorFlow](https://www.tensorflow.org/). Adjust configuration on `MaDDQN/src/config.py`, and just
 
     python3 MaDDQN/src/main.py
     
@@ -31,7 +31,8 @@ The Multi-agent Double DQN algorithm is in the `MaDDQN` folder. To run, you will
     
 The algorithm works almost out of the box with the two testing scenarios. Below are some results for the Foraging Task
 
-![Example](https://www.dropbox.com/s/mba4xp9rwnad5y1/ff-gen-2.GIF)
+![](https://dl.dropboxusercontent.com/content_link/UuV8gVUsuJEyrVWRj6KVQKevxg9TT0i1B6RzfTHO82niLoSmZM2QOGThrm3ZfGie/file)
+![](https://www.dropbox.com/s/mba4xp9rwnad5y1/ff-gen-2.GIF)
 
 And for the Pursuit Game
 
