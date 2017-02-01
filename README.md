@@ -1,4 +1,4 @@
-# Multi-agent-Double-Deep-Q-Networks
+# Multi-agent Double Deep Q-Networks
 A multi-agent version of the Double DQN algorithm, with Foraging Task and Pursuit Game test scenarios.
 
 ## Forager Task
@@ -23,7 +23,7 @@ To run, adjust configurations on `Pursuit/pursuit/src/pursuit.conf`, and just
 
 ## Multi-agent Double DQN
 
-The Multi-agent Double DQN algorithm is in the `MaDDQN` folder. To run, you will need [Python3](https://www.python.org/download/releases/3.0/) and [TensorFlow](https://www.tensorflow.org/). Adjust configuration on `MaDDQN/src/config.py`, and just
+The Multi-agent Double DQN algorithm is in the `MaDDQN` folder. Original code by [devsisters](https://github.com/devsisters/DQN-tensorflow), you will need [Python3.3+](https://www.python.org/download/releases/3.0/), [TDQM](https://github.com/tqdm/tqdm) and [TensorFlow 0.13+](https://www.tensorflow.org/). Adjust configuration on `MaDDQN/src/config.py`, and just
 
     python3 MaDDQN/src/main.py
     
