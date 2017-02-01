@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Forager/Forager.iml" filepath="$PROJECT_DIR$/Forager/Forager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MaDDQN/MaDDQN.iml" filepath="$PROJECT_DIR$/MaDDQN/MaDDQN.iml" />
+    </modules>
+  </component>
+</project>

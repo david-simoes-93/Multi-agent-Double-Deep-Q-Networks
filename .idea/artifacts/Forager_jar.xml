@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Forager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Forager_jar</output-path>
+    <root id="archive" name="Forager.jar">
+      <element id="module-output" name="Forager" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Forager/include/Jama-1.0.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Forager/include/jcommon-1.0.23.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Forager/include/log4j-api-2.6.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Forager/include/log4j-core-2.6.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Forager/include/jfreechart-1.0.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Forager/include/jedis-3.0.0-SNAPSHOT.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

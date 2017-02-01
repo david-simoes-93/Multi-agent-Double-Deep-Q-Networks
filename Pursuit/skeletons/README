@@ -1,0 +1,8 @@
+This directory contains several skeletons programs in which the
+implementation of both the predators and the preys can be defined. The
+predator and prey directory contain the default predator and prey
+implementation respectively. The java_predator and the python_predator
+directory contain skeleton programs in respectively the java and the
+python language. You can also create your own skeleton in the
+particular programming language that you favor as long as it supports
+sockets.

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="ForagerLib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/Forager/include" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/Forager/include" recursive="false" />
+  </library>
+</component>

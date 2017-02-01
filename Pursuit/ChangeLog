@@ -1,0 +1,7 @@
+2003-08-10  Jelle Kok  <jellekok@science.uva.nl>
+
+ * First version 0.8 released.
+
+2006-03-03 Version 0.9 released
+
+* Now it is possible to share rewards between agents and specify a fixed starting position for at most 4 predators and 2 preys. 

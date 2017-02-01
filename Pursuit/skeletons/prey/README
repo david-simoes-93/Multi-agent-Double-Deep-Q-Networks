@@ -1,0 +1,15 @@
+This directory contains the sources for the 'pursuit' program. This
+program is the server of the predator-prey domain, models the field
+and handles all communication with the clients and/or monitors. Many
+options of this simulator can be configured using the src/pursuit.conf
+file.
+
+To build the program, do the standard 
+> ./configure
+> ./make
+> ./make install
+
+loop. 
+
+
+

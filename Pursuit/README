@@ -1,0 +1,84 @@
+*****************************************************************
+* Pursuit Domain - University of Amsterdam, The Netherlands     *
+* Created by Jelle Kok                                          *
+* Lab course for the MAS and DAI course given by Nikos Vlassis  *
+* Copyright 2002-2003.  All rights reserved.                    *
+*****************************************************************
+
+o The software in this package is an implementation of the famous
+  predator-prey or pursuit domain. It has been used in the course
+  'Multiagent systems and Distributed AI' since spring 2002.
+
+o This is the root directory of the package and contains the
+  directories of the different programs that make up the pursuit
+  program:
+
+- pursuit   - this is the main program which models the world and
+              handles the communication with the client (over UDP
+              sockets)
+
+- monitor - displays current state of the world [needs GLUT]
+
+- logplayer - replays recorded games [needs gtk].
+
+- skeletons - contains some basic examples for the predators/preys
+              a Java, C++ and python version is available. 
+
+o The server can be configured using the configuration file
+  pursuit.conf, the monitor can be configured using the configuration
+  file monitor.conf. Both files are located in their corresponding
+  source directory.
+
+o To start the server, one monitor and two preys and two predators use
+  the script 'start.sh' located in this directory.
+
+o The technical report located in the doc directory contains an
+  extensive explanation of the program and how to work with
+  it. Furthermore, for the bold ones, the source is richly documented
+  using doxygen.
+
+o The monitor uses the GL and glut libraries. If it is not installed, get
+  it from http://www.mesa3d.org.
+
+o To build the program and get the program running, do the following
+
+./configure -C [-C option will use the cache file after first run]
+./make 
+./start.sh
+
+o documentation of the source is not built by default. To build the
+  documentation for a specific package, go to the specific directory
+  (i.e., skeletons/predator and type 'make doc'). The html output will
+  be written to the directory 'doc/html' relative to the current dir.
+
+o We tried to compile the sources under Windows using Cygwin, but did
+  not succeed for the logplayer, since we couldn't get gtk working
+  under cygwin (suggestions are welcome). Furthermore, the configure
+  script fails for the monitor on the GL library test. A (quick)
+  work-around to get the components compiled do the following:
+  cd pursuitbase; ./configure; make; cd ..               [standard]
+  cd pursuit; ./configure; make; cd ..                   [standard]
+  cd skeletons/prey; ./configure; make; cd ../..         [standard]
+  cd skeletons/predator; ./configure; make; cd ../..     [standard]
+  cd monitor/src;                                        [different]
+
+  [create symbolics links to installed opengl libs]
+  ln -s /usr/lib/w32api/libopengl32.a  /usr/X11R6/lib/libGL.a
+  ln -s /usr/lib/w32api/libglu32.a  /usr/X11R6/lib/libGLU.a
+  ln -s /usr/lib/w32api/libglut32.a  /usr/X11R6/lib/libGLUT.a
+
+  [compile the sources]
+  g++ Monitor.C MonitorParameters.C RGBcolor.C \
+	-I../../pursuitbase/pursuitbase \
+	../../pursuitbase/pursuitbase/Connection.C \
+	../../pursuitbase/pursuitbase/GenericValues.C \
+        -c pursuit_monitor.exe \
+  	 -L/usr/X11R6/lib -lGL -lGLUT -lGLU		
+  cd ../..;   ./start.sh                                 [standard]
+
+  The resulting  binaries can also be download separately from the webiste
+	http://www.science.uva.nl/~jellekok/software/pursuit
+
+o If you have questions, comments or suggestions, please contact me at
+  jellekok@science.uva.nl
+

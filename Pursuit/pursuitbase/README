@@ -1,0 +1,12 @@
+This directory contains the base sources for the 'pursuit'
+program (as the Connection and the GenericValues class). 
+
+To build the libraries, do the standard 
+> ./configure
+> ./make
+> ./make install
+
+loop. 
+
+
+

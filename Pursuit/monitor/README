@@ -1,0 +1,14 @@
+This directory contains the sources for the 'pursuit_monitor'
+program. This program is the monitor for the predator-prey domain and
+displays the current state of the world. Options of this monitor can
+be configured using the src/monitor.conf file.
+
+To build the program, do the standard 
+> ./configure
+> ./make
+> ./make install
+
+loop. 
+
+
+

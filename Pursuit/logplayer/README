@@ -1,0 +1,16 @@
+This directory contains the sources for the 'logplayer' program. This
+program is the logplayer of the predator-prey domain and can play back
+the .log format files created by the server (if this option was turned
+on in the conifuration file). The logplayer uses gtk and does not
+visualize the situations. The standard monitor has to be started to
+accomplish this.
+
+To build the program, do the standard 
+> ./configure
+> ./make
+> ./make install
+
+loop. 
+
+
+
