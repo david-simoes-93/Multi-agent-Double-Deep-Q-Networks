@@ -29,12 +29,14 @@ The Multi-agent Double DQN algorithm is in the `MaDDQN` folder. To run, you will
     
 ## Results
     
-The algorithm works almost out of the box with the two testing scenarios. Below are some results for the Foraging Task
+The algorithm works almost out of the box with the two testing scenarios. Below are some results for the Foraging Task. It shows the results of a
 
-![](https://dl.dropboxusercontent.com/content_link/UuV8gVUsuJEyrVWRj6KVQKevxg9TT0i1B6RzfTHO82niLoSmZM2QOGThrm3ZfGie/file)
-![](https://www.dropbox.com/s/mba4xp9rwnad5y1/ff-gen-2.GIF)
+![ff-gen-0](https://cloud.githubusercontent.com/assets/9117323/22506905/c872a3b2-e87a-11e6-8b23-7fa81c620d1c.GIF)
+![ff-gen-1](https://cloud.githubusercontent.com/assets/9117323/22506906/c88da176-e87a-11e6-89a0-abcd50b1c9fe.GIF)
+![ff-gen-2](https://cloud.githubusercontent.com/assets/9117323/22506907/c89adf26-e87a-11e6-9ac2-51749c5a7445.GIF)
 
 And for the Pursuit Game
 
-![Example](https://www.dropbox.com/s/ptlwd4ii81n2zur/prst-2a-2p.GIF)
-![Example](https://www.dropbox.com/s/pdl8as0mnyqytpx/prst-2a-2p-15x15.GIF)
+![prst-1a-2p](https://cloud.githubusercontent.com/assets/9117323/22506910/c89fc19e-e87a-11e6-9c11-87c9065f2c89.GIF)
+![prst-2a-2p](https://cloud.githubusercontent.com/assets/9117323/22506908/c89cfeaa-e87a-11e6-82d7-1abca7c8c9a5.GIF)
+![prst-2a-2p-15x15](https://cloud.githubusercontent.com/assets/9117323/22506909/c89f27d4-e87a-11e6-8819-4922b1772133.GIF)
