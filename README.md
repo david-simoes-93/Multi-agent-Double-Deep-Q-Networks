@@ -29,13 +29,13 @@ The Multi-agent Double DQN algorithm is in the `MaDDQN` folder. To run, you will
     
 ## Results
     
-The algorithm works almost out of the box with the two testing scenarios. Below are some results for the Foraging Task. It shows the results of a
+The algorithm works almost out of the box with the two testing scenarios. Below are some results for the Foraging Task. It shows the results of several stages of learning.
 
 ![ff-gen-0](https://cloud.githubusercontent.com/assets/9117323/22506905/c872a3b2-e87a-11e6-8b23-7fa81c620d1c.GIF)
 ![ff-gen-1](https://cloud.githubusercontent.com/assets/9117323/22506906/c88da176-e87a-11e6-89a0-abcd50b1c9fe.GIF)
 ![ff-gen-2](https://cloud.githubusercontent.com/assets/9117323/22506907/c89adf26-e87a-11e6-9ac2-51749c5a7445.GIF)
 
-And for the Pursuit Game
+For the Pursuit Game, there is an example of a 1v2 situation, where it is impossible for the agent to catch the prey, and then a 2v2 on a small and a large map.
 
 ![prst-1a-2p](https://cloud.githubusercontent.com/assets/9117323/22506910/c89fc19e-e87a-11e6-9c11-87c9065f2c89.GIF)
 ![prst-2a-2p](https://cloud.githubusercontent.com/assets/9117323/22506908/c89cfeaa-e87a-11e6-82d7-1abca7c8c9a5.GIF)
