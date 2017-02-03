@@ -23,13 +23,13 @@ To run, adjust configurations on `Pursuit/pursuit/src/pursuit.conf`, and just
 
 ## Multi-agent Double DQN
 
-The Multi-agent Double DQN algorithm is in the `MaDDQN` folder. Original code by [devsisters](https://github.com/devsisters/DQN-tensorflow), you will need [Python3.3+](https://www.python.org/download/releases/3.0/), [TDQM](https://github.com/tqdm/tqdm) and [TensorFlow 0.13+](https://www.tensorflow.org/). Adjust configuration on `MaDDQN/src/config.py`, and just
+The Multi-agent Double DQN algorithm is in the `MaDDQN` folder. Original DQN code by [devsisters](https://github.com/devsisters/DQN-tensorflow), you will need [Python3.3+](https://www.python.org/download/releases/3.0/), [TDQM](https://github.com/tqdm/tqdm), [matplotlib](http://matplotlib.org/), [python-tk](https://wiki.python.org/moin/TkInter) and [TensorFlow 0.13+](https://www.tensorflow.org/). Adjust configuration on `MaDDQN/src/config.py`, and just
 
     python3 MaDDQN/src/main.py
     
 ## Results
     
-The algorithm works almost out of the box with the two testing scenarios. Below are some results for the Foraging Task. It shows the results of several stages of learning.
+The algorithm works almost out of the box with the two testing scenarios. Below are some results for the Foraging Task. It shows the results of several stages of learning. For 7x7 maps, we used a neural network with 2 hidden layers of 50 nodes each, RelU activation. For 15x15 maps, we used a neural network with 4 hidden layers, 100 nodes each, sigmoid activation on first two layers and RelU on last two layers.
 
 Low-training, 2 agents, 10 berries
 ![ff-gen-0](https://cloud.githubusercontent.com/assets/9117323/22506905/c872a3b2-e87a-11e6-8b23-7fa81c620d1c.GIF)
