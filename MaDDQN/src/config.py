@@ -6,14 +6,13 @@ class AgentConfig(object):
 
     batch_size = 32                 # mini-batch size
     random_start = 0                # steps to randomly wait
-    # cnn_format = 'NCHW'             # batch size, history size, y, x
     discount = 0.9                  # future rewards discount (gamma)
     target_q_update_step = 500      # steps to update networks (tau)
 
     # alpha
-    learning_rate =         0.001             # learning rate (alpha) 0.001
-    learning_rate_minimum = 0.001     # learning rate min val 0.0001
-    learning_rate_decay = 1             # dont decay
+    learning_rate = 0.001           # learning rate (alpha) 0.001
+    learning_rate_minimum = 0.001   # learning rate min val 0.0001
+    learning_rate_decay = 1         # dont decay
     learning_rate_decay_step = 1    # dont decay
 
     # epsilon
@@ -25,10 +24,10 @@ class AgentConfig(object):
     train_frequency = 1             # skip frames
     learn_start = 500               # when to start learning
 
-    min_delta = -10000                  # target clipping (delta)
-    max_delta = 10000                   # target clipping (delta)
+    min_delta = -10000              # target clipping (delta)
+    max_delta = 10000               # target clipping (delta)
 
-    double_q = True                # Double DQN
+    double_q = True                 # Double DQN
     dueling = False                 # Dueling DQN
 
     _test_step = 2000               # steps to test learning
@@ -42,7 +41,7 @@ class EnvironmentConfig(object):
     noa = 2                         # number of agents
     nob = 2                         # number of berries
 
-    jal = False                     # JAL or IL
+    jal = True                      # JAL or IL
     independent_rewards = False     # split rewards
 
     gui = True

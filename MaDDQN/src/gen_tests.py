@@ -65,8 +65,8 @@ elif False:
 # compare IL or JAL
 elif True:
     os.system(python_str+' True True False 200000 150000 0 2 2 ./ ./ us')
-    os.system(python_str+' True False False 200000 150000 0 2 2 ./ ./ us')
-    os.system(python_str+' True False False 200000 150000 0 2 2 ./ ./ us')
+    os.system(python_str+' True True False 200000 150000 0 2 2 ./ ./ us')
+    os.system(python_str+' True True False 200000 150000 0 2 2 ./ ./ us')
 # compare IL or JAL for prst
 elif True:
     for _ in range(1):

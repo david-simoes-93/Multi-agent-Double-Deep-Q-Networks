@@ -391,8 +391,8 @@ class Agent(BaseModel):
         # training network
         with tf.variable_scope('prediction'):
             self.s_t = tf.placeholder('float32', [None, self.env.input_size], name='s_t')
-            self.l1, self.w['l1_w'], self.w['l1_b'] = linear(self.s_t, hl_size, activation_fn=tf.nn.sigmoid, name='l1')
-            self.l2, self.w['l2_w'], self.w['l2_b'] = linear(self.l1, hl_size, activation_fn=tf.nn.sigmoid, name='l2')
+            self.l1, self.w['l1_w'], self.w['l1_b'] = linear(self.s_t, hl_size, activation_fn=tf.nn.relu, name='l1')
+            self.l2, self.w['l2_w'], self.w['l2_b'] = linear(self.l1, hl_size, activation_fn=tf.nn.relu, name='l2')
             #self.l3, self.w['l3_w'], self.w['l3_b'] = linear(self.l2, hl_size, activation_fn=tf.nn.relu, name='l3')
             #self.l4, self.w['l4_w'], self.w['l4_b'] = linear(self.l3, hl_size, activation_fn=tf.nn.relu, name='l4')
             self.q, self.w['q_w'], self.w['q_b'] = linear(self.l2, output_size, name='q')
@@ -408,8 +408,8 @@ class Agent(BaseModel):
         # target network
         with tf.variable_scope('target'):
             self.target_s_t = tf.placeholder('float32', [None, self.env.input_size], name='target_s_t')
-            self.target_l1, self.t_w['l1_w'], self.t_w['l1_b'] = linear(self.target_s_t, hl_size, activation_fn=tf.nn.sigmoid, name='target_l1')
-            self.target_l2, self.t_w['l2_w'], self.t_w['l2_b'] = linear(self.target_l1, hl_size, activation_fn=tf.nn.sigmoid, name='target_l2')
+            self.target_l1, self.t_w['l1_w'], self.t_w['l1_b'] = linear(self.target_s_t, hl_size, activation_fn=tf.nn.relu, name='target_l1')
+            self.target_l2, self.t_w['l2_w'], self.t_w['l2_b'] = linear(self.target_l1, hl_size, activation_fn=tf.nn.relu, name='target_l2')
             #self.target_l3, self.t_w['l3_w'], self.t_w['l3_b'] = linear(self.target_l2, hl_size, activation_fn=tf.nn.relu, name='target_l3')
             #self.target_l4, self.t_w['l4_w'], self.t_w['l4_b'] = linear(self.target_l3, hl_size, activation_fn=tf.nn.relu, name='target_l4')
             self.target_q, self.t_w['q_w'], self.t_w['q_b'] = linear(self.target_l2, output_size, name='target_q')
