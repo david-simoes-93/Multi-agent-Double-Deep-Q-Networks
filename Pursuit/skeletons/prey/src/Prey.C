@@ -117,7 +117,7 @@ void Prey::determineCommunicationCommand( char* str )
 void Prey::determineMovementCommand( char* str )
 {
   if(1){
-    if( drand48() < 0.5 )
+    if( drand48() < 0.0 )
     {
       sprintf( str, "(move none)" );
       return;
