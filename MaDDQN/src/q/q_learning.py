@@ -4,6 +4,10 @@ import numpy as np
 from tqdm import tqdm
 import random
 import matplotlib.pyplot as plt
+import time
+import os
+import signal
+import subprocess
 
 class q_config(object):
     def __init__(self):
@@ -13,7 +17,7 @@ class q_config(object):
         self.independent_rewards = False
         self.screen_width = 7
         self.screen_height = 7
-        self.max_training_steps = 200000
+        self.max_training_steps = 100000
         self.anneal_training_steps = self.max_training_steps*0.75
 
 def get_list_of_actions_from_index(index, env):
@@ -36,27 +40,45 @@ def predict(s_t, q_table, env, step, end_steps, test_ep=None):
     if random.random() < ep:
         for _ in range(env.noa):
             actions.append(random.randrange(env.action_size))
+        #print(":",actions, env.action_size)
     else:
         state_key = add_state_if_necessary(s_t, q_table, env)
 
         if env.jal:
             index = np.argmax(q_table[state_key])
             actions = get_list_of_actions_from_index(index, env)
+            #print("+",actions)
         else:
             actions = [0]*env.noa
             for i in range(env.noa):
                 actions[i] = np.argmax(q_table[state_key[i]])
+            #print("-",actions)
 
     #if step>end_steps:
     #    print(names[actions[0]], names[actions[1]])
     return actions
 
 def turn_state_to_key(screen, config, env):
-    return '\n'.join(' '.join(''.join( \
-        str(int(screen[i+j*env.numberOfMapCells+x*env.numberOfMapCells*config.screen_width])) \
-            for i in range(env.numberOfMapCells) ) \
-                       for j in range(config.screen_width) ) \
-                        for x in range(config.screen_height) )
+    if config.jal:
+        size = env.numberOfMapCells*config.screen_width*config.screen_height
+        ret_val = ""
+
+        for agent in range(int(len(screen)/size)):
+            part_screen = screen[agent*size:(agent+1)*size]
+            ret_val += '\n'.join(' '.join(''.join( \
+                str(int(part_screen[i+j*env.numberOfMapCells+x*env.numberOfMapCells*config.screen_width])) \
+                    for i in range(env.numberOfMapCells) ) \
+                               for j in range(config.screen_width) ) \
+                                for x in range(config.screen_height) ) + '\n'
+
+        return ret_val
+    else:
+        #print(screen)
+        return '\n'.join(' '.join(''.join( \
+            str(int(screen[i+j*env.numberOfMapCells+x*env.numberOfMapCells*config.screen_width])) \
+                for i in range(env.numberOfMapCells) ) \
+                    for j in range(config.screen_width) ) \
+                         for x in range(config.screen_height) )
 
 def add_state_if_necessary(screen, q_table, env):
     if env.jal:
@@ -73,7 +95,61 @@ def add_state_if_necessary(screen, q_table, env):
             currstate_keys.append(currstate_key)
         return currstate_keys
 
-def debug_run(config, jal, step, gui, plt, q, learning_test_steps, learning_test_values, env):
+def debug_run_prst(jal, step, gui, plt, q, learning_test_steps, learning_test_values, env):
+    states_text = ["(see ((prey 1) 3 3) ((prey 2) 3 2) ((predator 1) 0 0) ((predator 2) 0 1)) ",
+                   "(see ((prey 1) 3 -3) ((prey 2) 3 3) ((predator 1) 0 0) ((predator 2) 0 1)) ",
+                   "(see ((prey 1) 3 3) ((prey 2) 3 -3) ((predator 1) 0 0) ((predator 2) 0 1)) ",
+                   "(see ((prey 1) 3 -2) ((prey 2) 3 -3) ((predator 1) 0 0) ((predator 2) -1 2)) ",
+                   "(see ((prey 1) 3 -3) ((prey 2) 3 -2) ((predator 1) 0 0) ((predator 2) -2 2)) ",
+                   "(see ((prey 1) 2 -2) ((prey 2) 3 -2) ((predator 1) 0 0) ((predator 2) -3 3)) ",
+                   "(see ((prey 1) 2 -2) ((prey 2) 2 -1) ((predator 1) 0 0) ((predator 2) 3 -3)) ",
+                   "(see ((prey 1) 1 -3) ((prey 2) 1 -2) ((predator 1) 0 0) ((predator 2) 2 -2)) ",
+                   "(see ((prey 1) 3 -3) ((predator 1) 0 0) ((predator 2) 2 -2)) ",
+                   "(see ((prey 1) -3 -2) ((predator 1) 0 0) ((predator 2) 3 -3)) ",
+                   "(see ((prey 1) -2 -1) ((predator 1) 0 0) ((predator 2) -3 -3)) ",
+                   "(see ((prey 1) -2 -1) ((predator 1) 0 0) ((predator 2) -2 -2)) ",
+                   "(see ((prey 1) -2 -1) ((predator 1) 0 0) ((predator 2) -2 -2)) ",
+                   "(see ((prey 1) -2 -1) ((predator 1) 0 0) ((predator 2) -2 -2)) "]
+    states_text1 = ["(see ((prey 1) 3 2) ((prey 2) 3 1) ((predator 1) 0 -1) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) 3 3) ((prey 2) 3 2) ((predator 1) 0 -1) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) 3 2) ((prey 2) 3 3) ((predator 1) 0 -1) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) -3 3) ((prey 2) -3 2) ((predator 1) 1 -2) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) -2 2) ((prey 2) -2 3) ((predator 1) 2 -2) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) -2 2) ((prey 2) -1 2) ((predator 1) 3 -3) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) -1 1) ((prey 2) -1 2) ((predator 1) -3 3) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) -1 -1) ((prey 2) -1 0) ((predator 1) -2 2) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) 1 -1) ((predator 1) -2 2) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) 1 1) ((predator 1) -3 3) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) 1 2) ((predator 1) 3 3) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) 0 1) ((predator 1) 2 2) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) 0 1) ((predator 1) 2 2) ((predator 2) 0 0)) ",
+                    "(see ((prey 1) 0 1) ((predator 1) 2 2) ((predator 2) 0 0)) "]
+
+    states = []
+    for s in states_text:
+        states.append(PrstEnvironment.convert_state_to_1_out_of_n(s, env.width, env.height, env.numberOfMapCells))
+    states1 = []
+    for s in states_text1:
+        states1.append(PrstEnvironment.convert_state_to_1_out_of_n(s, env.width, env.height, env.numberOfMapCells))
+
+    avg_max = 0
+    for x in range(len(states_text)):
+        #print("....")
+        #print(add_state_if_necessary(states[x]+states1[x], q, env))
+        #exit()
+        if jal:
+            avg_max += max(q[add_state_if_necessary(states[x]+states1[x], q, env)])
+        else:
+            avg_max += max(q[add_state_if_necessary([states[x], states1[x]], q, env)[0]])
+
+    learning_test_steps.append(step)
+    learning_test_values.append(avg_max/len(states_text))
+    if gui:
+        plt.clf()
+        plt.plot(learning_test_steps, learning_test_values)
+        plt.pause(0.001)
+
+def debug_run_ff(config, jal, step, gui, plt, q, learning_test_steps, learning_test_values, env):
     screen, reward, action, terminal = env.new_game('tst')
     counter = 0
 
@@ -125,7 +201,12 @@ def debug_run(config, jal, step, gui, plt, q, learning_test_steps, learning_test
 
 def train_several(n_epochs):
     for runs in range(n_epochs):
+        p = subprocess.Popen('../../../Pursuit/start2.sh',
+                             stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+        time.sleep(5)
         train_once({}, runs)
+        os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+        time.sleep(1)
 
 def train_once(q_table, runs):
     #env = FfEnvironment(config)
@@ -155,6 +236,8 @@ def train_once(q_table, runs):
         env.act(actions)
         screen, reward, term = env.state
         currstate_key = add_state_if_necessary(screen, q_table, env)
+        #print("----")
+        #print(screen, currstate_key)
         if config.jal:
             history[history_index]=[prevstate_key, currstate_key, reward, term, get_index_from_list_of_actions(actions, env)]
         else:
@@ -190,7 +273,8 @@ def train_once(q_table, runs):
         iteration_steps += 1
         if term or iteration_steps > env.max_steps:
             if step > last_debug + 2000:
-                debug_run(config, config.jal, step, gui, plt, q_table, learning_test_steps, learning_test_values, env)
+                #debug_run_ff(config, config.jal, step, gui, plt, q_table, learning_test_steps, learning_test_values, env)
+                debug_run_prst(config.jal, step, gui, plt, q_table, learning_test_steps, learning_test_values, env)
                 last_debug = step
 
             screen, reward, action, terminal = env.new_random_game()
@@ -198,7 +282,8 @@ def train_once(q_table, runs):
             steps_per_game.append(iteration_steps)
             iteration_steps = 0
         if step % 2000 == 2000-1:
-            print(np.mean(steps_per_game), len(q_table.keys()))
+            if len(steps_per_game)>0:
+                print(np.mean(steps_per_game), len(q_table.keys()))
             steps_per_game = []
 
     env.close()
@@ -213,7 +298,8 @@ def play(file_name, n_step=200, n_episode=1000, test_ep=0.05):
     best_reward, best_idx = 0, 0
     rewards = []
     steps = []
-    env = FfEnvironment(config)
+    #env = FfEnvironment(config)
+    env = PrstEnvironment(config)
 
     for idx in range(n_episode):
         screen, reward, action, terminal = env.new_random_game()
@@ -248,32 +334,100 @@ learning_rate = 0.5
 
 # JAL average reward
 train_several(5)
+
+p = subprocess.Popen('../../../Pursuit/start2.sh',
+                     stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+time.sleep(5)
 play('q_table7x7-0x199999.npy')
+os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+time.sleep(1)
 
 # jal train once
 #train_once({}, 0)
 #play('q_table7x7-0x199999.npy')
 
 # jal generalize to 1 more berry
-#config.nob = 3
-#config.max_training_steps = 20000
-#train_once(np.load('q_table7x7-0x199999.npy').item(),10)
-#play('q_table7x7-10x19999.npy')
+config.nob = 3
+config.max_training_steps = 20000
+
+p = subprocess.Popen('../../../Pursuit/start3.sh',
+                     stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+time.sleep(5)
+train_once(np.load('q_table7x7-0x199999.npy').item(),10)
+os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+time.sleep(1)
+
+p = subprocess.Popen('../../../Pursuit/start3.sh',
+                     stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+time.sleep(5)
+play('q_table7x7-10x19999.npy')
+os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+time.sleep(1)
 
 # jal generalize to 1 more berry
 config.nob = 4
 config.max_training_steps = 20000
+p = subprocess.Popen('../../../Pursuit/start4.sh',
+                     stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+time.sleep(5)
 train_once(np.load('q_table7x7-10x19999.npy').item(),11)
-play('q_table7x7-11x19999.npy')
+os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+time.sleep(1)
 
+p = subprocess.Popen('../../../Pursuit/start4.sh',
+                     stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+time.sleep(5)
+play('q_table7x7-11x19999.npy')
+os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+time.sleep(1)
+
+# il
+config.nob=2
+config.max_training_steps = 200000
 config.jal = False
-#train_several(5)
-#play('q_table7x7-0x199999.npy')
+train_several(5)
+
+p = subprocess.Popen('../../../Pursuit/start2.sh',
+                     stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+time.sleep(5)
+play('q_table7x7-0x199999.npy')
+os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+time.sleep(1)
 
 #train_once({}, 0)
 #play('q_table7x7-0x199999.npy')
 
+# il generalize to 1 more berry
 config.nob = 3
 config.max_training_steps = 20000
-#train_once(np.load('q_table7x7-0x199999.npy').item(),10)
-#play('q_table7x7-10x19999.npy')
+
+p = subprocess.Popen('../../../Pursuit/start3.sh',
+                     stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+time.sleep(5)
+train_once(np.load('q_table7x7-0x199999.npy').item(),10)
+os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+time.sleep(1)
+
+p = subprocess.Popen('../../../Pursuit/start3.sh',
+                     stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+time.sleep(5)
+play('q_table7x7-10x19999.npy')
+os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+time.sleep(1)
+
+# il generalize to 1 more berry
+config.nob = 4
+config.max_training_steps = 20000
+p = subprocess.Popen('../../../Pursuit/start4.sh',
+                     stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+time.sleep(5)
+train_once(np.load('q_table7x7-10x19999.npy').item(),11)
+os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+time.sleep(1)
+
+p = subprocess.Popen('../../../Pursuit/start4.sh',
+                     stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+time.sleep(5)
+play('q_table7x7-11x19999.npy')
+os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+time.sleep(1)

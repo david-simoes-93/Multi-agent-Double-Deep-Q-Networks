@@ -268,7 +268,7 @@ class FfEnvironment(object):
         # http://stackoverflow.com/questions/40680411/extending-integer-list-to-1-out-of-n-binary-list
 
         # convert to binary
-        #print(state)
+        print(state)
         cleanstate = list(map(int, ''.join(bin(i)[2:].zfill(numberOfMapCells) for i in state)))
 
         # add bit for EMPTY

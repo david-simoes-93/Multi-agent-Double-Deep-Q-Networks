@@ -313,6 +313,7 @@ class PrstEnvironment(object):
 
     @staticmethod
     def convert_state_to_1_out_of_n(state, width, height, number_of_map_cells):
+        #print(state)
         cleanstate = [0]*(width*height*number_of_map_cells) #subtract empty and otheragent types
 
         observations = state[6:-3].split(') (')
