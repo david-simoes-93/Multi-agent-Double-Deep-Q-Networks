@@ -53,3 +53,6 @@ For the Pursuit Game, there is an example of a 1v2 situation, where it is imposs
 
 15x15 map, 2 predator, 2 prey
 ![prst-2a-2p-15x15](https://cloud.githubusercontent.com/assets/9117323/22506909/c89f27d4-e87a-11e6-8819-4922b1772133.GIF)
+
+15x15 map, 4 predators, 2 prey, 3 obstacles
+![prst-4a-3p-15x15](https://www.dropbox.com/s/lkfk5zopdcbw2uo/prst-4a-3p-15x15.gif)
