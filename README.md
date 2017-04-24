@@ -32,22 +32,27 @@ The Multi-agent Double DQN algorithm is in the `MaDDQN` folder. Original DQN cod
 The algorithm works almost out of the box with the two testing scenarios. Below are some results for the Foraging Task. It shows the results of several stages of learning. For 7x7 maps, we used a neural network with 2 hidden layers of 50 nodes each, RelU activation. For 15x15 maps, we used a neural network with 2 hidden layers, 250 nodes each, and RelU activation.
 
 Low-training, 2 agents, 10 berries
-![ff-gen-0](https://cloud.githubusercontent.com/assets/9117323/22506905/c872a3b2-e87a-11e6-8b23-7fa81c620d1c.GIF)
+![ff-gen-0](https://cloud.githubusercontent.com/assets/9117323/22506905/c872a3b2-e87a-11e6-8b23-7fa81c620d1c.GIF =250x)
 
 ----
 
 High-training, 7x7 map, 2 agents, 10 berries
-![ff-gen-2](https://cloud.githubusercontent.com/assets/9117323/22506907/c89adf26-e87a-11e6-9ac2-51749c5a7445.GIF)
+![ff-gen-2](https://cloud.githubusercontent.com/assets/9117323/22506907/c89adf26-e87a-11e6-9ac2-51749c5a7445.GIF =250x)
 
 For the Pursuit Game, there is an example of a 1v2 situation, where it is impossible for the agent to catch the prey, and then a 2v2 on a small and a large map.
 
 7x7 map, 1 predator, 2 prey
-![prst-1a-2p](https://cloud.githubusercontent.com/assets/9117323/22506910/c89fc19e-e87a-11e6-9c11-87c9065f2c89.GIF)
+![prst-1a-2p](https://cloud.githubusercontent.com/assets/9117323/22506910/c89fc19e-e87a-11e6-9c11-87c9065f2c89.GIF =250x)
 
 ----
 
 7x7 map, 2 predator, 2 prey
-![prst-2a-2p](https://cloud.githubusercontent.com/assets/9117323/22506908/c89cfeaa-e87a-11e6-82d7-1abca7c8c9a5.GIF)
+![prst-2a-2p](https://cloud.githubusercontent.com/assets/9117323/22506908/c89cfeaa-e87a-11e6-82d7-1abca7c8c9a5.GIF =250x)
+
+----
+
+15x15 map, 4 agents, 10 berries
+![ff-4a-10b-15x15](https://cloud.githubusercontent.com/assets/9117323/25333859/edd922c6-28e3-11e7-8d71-fee13deab4c6.GIF)
 
 ----
 
