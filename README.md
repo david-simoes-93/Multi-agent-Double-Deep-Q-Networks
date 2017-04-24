@@ -33,8 +33,8 @@ The algorithm works almost out of the box with the two testing scenarios. Below 
 
 Low-training (left) and high-training (right), 2 agents, 10 berries
 </p>
-<img src="https://cloud.githubusercontent.com/assets/9117323/22506905/c872a3b2-e87a-11e6-8b23-7fa81c620d1c.GIF" width="200">
-<img src="https://cloud.githubusercontent.com/assets/9117323/22506907/c89adf26-e87a-11e6-9ac2-51749c5a7445.GIF" width="200">
+<img src="https://cloud.githubusercontent.com/assets/9117323/22506905/c872a3b2-e87a-11e6-8b23-7fa81c620d1c.GIF" float="left" width="200">
+<img src="https://cloud.githubusercontent.com/assets/9117323/22506907/c89adf26-e87a-11e6-9ac2-51749c5a7445.GIF" float="left" width="200">
 
 ----
 
@@ -47,21 +47,29 @@ For the Pursuit Game, there is an example of a 1v2 situation, where it is imposs
 ----
 
 15x15 map, 4 agents, 10 berries
+
+</p>
 <img src="https://cloud.githubusercontent.com/assets/9117323/25333859/edd922c6-28e3-11e7-8d71-fee13deab4c6.GIF" width="400">
 
 ----
 
 15x15 map, 2 predator, 2 prey
 
+</p>
 <img src="https://cloud.githubusercontent.com/assets/9117323/22506909/c89f27d4-e87a-11e6-8819-4922b1772133.GIF" width="400">
 
 ----
 
 15x15 map, 2 predators, 3-6 prey, 3 obstacles (generalization, 10%)
+
+</p>
 <img src="https://cloud.githubusercontent.com/assets/9117323/24868699/c51d58a6-1e08-11e7-8cc6-8cd328652339.gif" width="400">
 <img src="https://cloud.githubusercontent.com/assets/9117323/24874701/815f2c9c-1e1d-11e7-90be-151a46e4f925.gif" width="400">
 <img src="https://cloud.githubusercontent.com/assets/9117323/24874896/120f54f6-1e1e-11e7-8912-4190101b556d.gif" width="400">
+
 ----
 
 15x15 map, 4 predators, 3 prey, 3 obstacles
+
+</p>
 <img src="https://cloud.githubusercontent.com/assets/9117323/22506909/c89f27d4-e87a-11e6-8819-4922b1772133.GIF" width="400">
